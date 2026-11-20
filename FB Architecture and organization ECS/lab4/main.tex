@@ -2,8 +2,8 @@
 \usepackage{gost}
 \begin{document}
   \section{Система управления обучением (Moodle)}
-Данные системы были созданы для дистанционного обучения. Такие платформы созданы для того, чтобы учителя могли свободно настраивать задания, оценивать и даже выставлять оценки. Самой известной на сегодняшний день является платформа Moodle.
-\bfseries{Moodle} - это абсолютно бесплатная система управления курсами с открытым исходным кодом, специализирующаяся для эффективного онлайн-обучения.
+Данные системы были созданы для дистанционного обучения. Такие платформы созданы для того, чтобы учителя могли свободно настраивать задания, оценивать и даже выставлять оценки. Самой известной на сегодняшний день является платформа Moodle. \par
+{\bfseries{Moodle}} - это абсолютно бесплатная система управления курсами с открытым исходным кодом, специализирующаяся для эффективного онлайн-обучения.
 Благодаря потребности в образовании и открытому исходному коду (\href{https://github.com/moodle/moodle}{Github}), существует множество сайтов которые открыты по всему миру, в одной только России открыто 4343 сайта (\href{https://stats.moodle.org}{Moodle statistics}). Основным языком, на котором он написан, является PHP. 
 \href{https://moodle.org}{Official Moodle site}
 \subsection{Назначение системы}
@@ -15,6 +15,169 @@
 В основном CMS писались (и пишутся) на языке PHP. Это скриптовый язык с динамическими типами, который появлился ещё в 1994 году (\href{https://www.php.net/manual/en/history.php.php}{PHP History}) и по сей день является актуальным языком для веб-разработки. Из-за развитых инструметов PHP для управления базами данных (PDO), Moodle может работать со множеством баз данных: PostgreSQL, MariaDB, MySQL, Oracle Database, Microsoft SQL Server.
 \subsubsection{Функциональные подсистемы и их взаимосвязь.}
 Moodle может использовать такие подсистемы как Web Services API (REST, SOAP, XML-RPC). Существуют ещё такие службы для интеграции контента на сайт: LTI (Главный стандарт для подключения внешних образовательных инструметов (антиплагиат)), SCORM (протокол для передачи прогресса и результатов прохождения тестов), xAPI (Стандарты для сбора подробной аналитики об учебном опыте).
+\subsection{Модель данных}
+Moodle может содержать до 200 таблиц.
+По умолчанию Moodle содержит следующие таблицы:
+\begin{itemize}
+    \item Configuration
+        \begin{itemize}
+            \item config
+                \begin{itemize}
+                    \item "id" BIGINT NOT NULL,
+                    \item "name" NVARCHAR(255) NOT NULL,
+                    \item "value" NVARCHAR(-1) NOT NULL
+                \end{itemize}
+            \item config\_log
+                \begin{itemize}
+                    \item "id" BIGINT NOT NULL,
+                    \item "userid" BIGINT NOT NULL,
+                    \item "timemodified" BIGINT NOT NULL,
+                    \item "plugin" NVARCHAR(100) NULL,
+                    \item "name" NVARCHAR(100) NOT NULL,
+                    \item "value" NVARCHAR(-1) NULL,
+                    \item "oldvalue" NVARCHAR(-1) NULL
+                \end{itemize}
+            \item config\_plugins
+                \begin{itemize}
+                    \item "id" BIGINT NOT NULL,
+                    \item "plugin" NVARCHAR(100) NOT NULL,
+                    \item "name" NVARCHAR(100) NOT NULL,
+                    \item "value" NVARCHAR(-1) NOT NULL
+                \end{itemize}
+        \end{itemize}
+    \item User and Profiles
+        \begin{itemize}
+            \item user
+                \begin{itemize}
+                    \item "id" BIGINT NOT NULL,
+                    \item "auth" NVARCHAR(20) NOT NULL,
+                    \item "confirmed" SMALLINT NOT NULL,
+                    \item "policyagreed" SMALLINT NOT NULL,
+                    \item "deleted" SMALLINT NOT NULL,
+                    \item "suspended" SMALLINT NOT NULL,
+                    \item "mnethostid" BIGINT NOT NULL,
+                    \item "username" NVARCHAR(100) NOT NULL,
+                    \item "password" NVARCHAR(32) NOT NULL,
+                    \item "idnumber" NVARCHAR(255) NOT NULL,
+                    \item "firstname" NVARCHAR(100) NOT NULL,
+                    \item "lastname" NVARCHAR(100) NOT NULL,
+                    \item "email" NVARCHAR(100) NOT NULL,
+                    \item "emailstop" SMALLINT NOT NULL,
+                    \item "icq" NVARCHAR(15) NOT NULL,
+                    \item "skype" NVARCHAR(50) NOT NULL,
+                    \item "yahoo" NVARCHAR(50) NOT NULL,
+                    \item "aim" NVARCHAR(50) NOT NULL,
+                    \item "msn" NVARCHAR(50) NOT NULL,
+                    \item "phone1" NVARCHAR(20) NOT NULL,
+                    \item "phone2" NVARCHAR(20) NOT NULL,
+                    \item "institution" NVARCHAR(40) NOT NULL,
+                    \item "department" NVARCHAR(30) NOT NULL,
+                    \item "address" NVARCHAR(70) NOT NULL,
+                    \item "city" NVARCHAR(120) NOT NULL,
+                    \item "country" NVARCHAR(2) NOT NULL,
+                    \item "lang" NVARCHAR(30) NOT NULL,
+                    \item "theme" NVARCHAR(50) NOT NULL,
+                    \item "timezone" NVARCHAR(100) NOT NULL,
+                    \item "firstaccess" BIGINT NOT NULL,
+                    \item "lastaccess" BIGINT NOT NULL,
+                    \item "lastlogin" BIGINT NOT NULL,
+                    \item "currentlogin" BIGINT NOT NULL,
+                    \item "lastip" NVARCHAR(45) NOT NULL,
+                    \item "secret" NVARCHAR(15) NOT NULL,
+                    \item "picture" BIGINT NOT NULL,
+                    \item "url" NVARCHAR(255) NOT NULL,
+                    \item "description" NVARCHAR(-1) NULL,
+                    \item "descriptionformat" SMALLINT NOT NULL,
+                    \item "mailformat" SMALLINT NOT NULL,
+                    \item "maildigest" SMALLINT NOT NULL,
+                    \item "maildisplay" SMALLINT NOT NULL,
+                    \item "htmleditor" SMALLINT NOT NULL,
+                    \item "autosubscribe" SMALLINT NOT NULL,
+                    \item "trackforums" SMALLINT NOT NULL,
+                    \item "timecreated" BIGINT NOT NULL,
+                    \item "timemodified" BIGINT NOT NULL,
+                    \item "trustbitmask" BIGINT NOT NULL,
+                    \item "imagealt" NVARCHAR(255) NULL,
+                    \item "screenreader" SMALLINT NOT NULL
+                \end{itemize}
+            \item user\_enrolments
+                \begin{itemize}
+                    \item "id" BIGINT NOT NULL,
+                    \item "status" BIGINT NOT NULL,
+                    \item "enrolid" BIGINT NOT NULL,
+                    \item "userid" BIGINT NOT NULL,
+                    \item "timestart" BIGINT NOT NULL,
+                    \item "timeend" BIGINT NOT NULL,
+                    \item "modifierid" BIGINT NOT NULL,
+                    \item "timecreated" BIGINT NOT NULL,
+                    \item "timemodified" BIGINT NOT NULL
+                \end{itemize}
+            \item user\_info\_category
+                \begin{itemize}
+                    \item "id" BIGINT NOT NULL,
+                    \item "name" NVARCHAR(255) NOT NULL,
+                    \item "sortorder" BIGINT NOT NULL 
+                \end{itemize}
+            \item user\_info\_data
+                \begin{itemize}
+                    \item "id" BIGINT NOT NULL,
+                    \item "userid" BIGINT NOT NULL,
+                    \item "fieldid" BIGINT NOT NULL,
+                    \item "data" NVARCHAR(-1) NOT NULL,
+                    \item "dataformat" SMALLINT NOT NULL 
+                \end{itemize}
+            \item user\_info\_field
+                \begin{itemize}
+                    \item "id" BIGINT NOT NULL,
+                    \item "shortname" NVARCHAR(255) NOT NULL,
+                    \item "name" NVARCHAR(-1) NOT NULL,
+                    \item "datatype" NVARCHAR(255) NOT NULL,
+                    \item "description" NVARCHAR(-1) NULL,
+                    \item "descriptionformat" SMALLINT NOT NULL,
+                    \item "categoryid" BIGINT NOT NULL,
+                    \item "sortorder" BIGINT NOT NULL,
+                    \item "required" SMALLINT NOT NULL,
+                    \item "locked" SMALLINT NOT NULL,
+                    \item "visible" SMALLINT NOT NULL,
+                    \item "forceunique" SMALLINT NOT NULL,
+                    \item "signup" SMALLINT NOT NULL,
+                    \item "defaultdata" NVARCHAR(-1) NULL,
+                    \item "defaultdataformat" SMALLINT NOT NULL,
+                    \item "param1" NVARCHAR(-1) NULL,
+                    \item "param2" NVARCHAR(-1) NULL,
+                    \item "param3" NVARCHAR(-1) NULL,
+                    \item "param4" NVARCHAR(-1) NULL,
+                    \item "param5" NVARCHAR(-1) NULL 
+                \end{itemize}
+            \item user\_lastaccess
+                \begin{itemize}
+                    \item "id" BIGINT NOT NULL,
+                    \item "userid" BIGINT NOT NULL,
+                    \item "courseid" BIGINT NOT NULL,
+                    \item "timeaccess" BIGINT NOT NULL
+                \end{itemize}
+            \item user\_preference
+                \begin{itemize}
+                    \item "id" BIGINT NOT NULL,
+                    \item "userid" BIGINT NOT NULL,
+                    \item "name" NVARCHAR(255) NOT NULL,
+                    \item "value" NVARCHAR(1333) NOT NULL  
+                \end{itemize}
+            \item user\_private\_key
+                \begin{itemize}
+                    \item "id" BIGINT NOT NULL,
+                    \item "script" NVARCHAR(128) NOT NULL,
+                    \item "value" NVARCHAR(128) NOT NULL,
+                    \item "userid" BIGINT NOT NULL,
+                    \item "instance" BIGINT NULL,
+                    \item "iprestriction" NVARCHAR(255) NULL,
+                    \item "validuntil" BIGINT NULL,
+                    \item "timecreated" BIGINT NULL 
+                \end{itemize}
+        \end{itemize}
+
+\end{itemize}
+
 % г) Модель данных (основные сущности, типы связей). 
 
 % д) Механизмы обеспечения надёжности (резервирование, 
