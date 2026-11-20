@@ -16,179 +16,213 @@
 \subsubsection{Функциональные подсистемы и их взаимосвязь.}
 Moodle может использовать такие подсистемы как Web Services API (REST, SOAP, XML-RPC). Существуют ещё такие службы для интеграции контента на сайт: LTI (Главный стандарт для подключения внешних образовательных инструметов (антиплагиат)), SCORM (протокол для передачи прогресса и результатов прохождения тестов), xAPI (Стандарты для сбора подробной аналитики об учебном опыте).
 \subsection{Модель данных}
-Moodle может содержать до 200 таблиц.
+Moodle может содержать до 200 таблиц. В них входят таблицы с конфигурацией проекта, таблицы с пользователями, ролями, статистикой, таблицы для блоков (UI), группы пользователей, вопросами.
 По умолчанию Moodle содержит следующие таблицы:
 \begin{itemize}
     \item Configuration
         \begin{itemize}
             \item config
-                \begin{itemize}
-                    \item "id" BIGINT NOT NULL,
-                    \item "name" NVARCHAR(255) NOT NULL,
-                    \item "value" NVARCHAR(-1) NOT NULL
-                \end{itemize}
+%                \begin{itemize}
+%                    \item "id" BIGINT NOT NULL,
+%                    \item "name" NVARCHAR(255) NOT NULL,
+%                    \item "value" NVARCHAR(-1) NOT NULL
+%                \end{itemize}
             \item config\_log
-                \begin{itemize}
-                    \item "id" BIGINT NOT NULL,
-                    \item "userid" BIGINT NOT NULL,
-                    \item "timemodified" BIGINT NOT NULL,
-                    \item "plugin" NVARCHAR(100) NULL,
-                    \item "name" NVARCHAR(100) NOT NULL,
-                    \item "value" NVARCHAR(-1) NULL,
-                    \item "oldvalue" NVARCHAR(-1) NULL
-                \end{itemize}
+%                \begin{itemize}
+%                    \item "id" BIGINT NOT NULL,
+%                    \item "userid" BIGINT NOT NULL,
+%                    \item "timemodified" BIGINT NOT NULL,
+%                    \item "plugin" NVARCHAR(100) NULL,
+%                    \item "name" NVARCHAR(100) NOT NULL,
+%                    \item "value" NVARCHAR(-1) NULL,
+%                    \item "oldvalue" NVARCHAR(-1) NULL
+%                \end{itemize}
             \item config\_plugins
-                \begin{itemize}
-                    \item "id" BIGINT NOT NULL,
-                    \item "plugin" NVARCHAR(100) NOT NULL,
-                    \item "name" NVARCHAR(100) NOT NULL,
-                    \item "value" NVARCHAR(-1) NOT NULL
-                \end{itemize}
+%                \begin{itemize}
+%                    \item "id" BIGINT NOT NULL,
+%                    \item "plugin" NVARCHAR(100) NOT NULL,
+%                    \item "name" NVARCHAR(100) NOT NULL,
+%                    \item "value" NVARCHAR(-1) NOT NULL
+%                \end{itemize}
         \end{itemize}
+
+
     \item User and Profiles
         \begin{itemize}
             \item user
-                \begin{itemize}
-                    \item "id" BIGINT NOT NULL,
-                    \item "auth" NVARCHAR(20) NOT NULL,
-                    \item "confirmed" SMALLINT NOT NULL,
-                    \item "policyagreed" SMALLINT NOT NULL,
-                    \item "deleted" SMALLINT NOT NULL,
-                    \item "suspended" SMALLINT NOT NULL,
-                    \item "mnethostid" BIGINT NOT NULL,
-                    \item "username" NVARCHAR(100) NOT NULL,
-                    \item "password" NVARCHAR(32) NOT NULL,
-                    \item "idnumber" NVARCHAR(255) NOT NULL,
-                    \item "firstname" NVARCHAR(100) NOT NULL,
-                    \item "lastname" NVARCHAR(100) NOT NULL,
-                    \item "email" NVARCHAR(100) NOT NULL,
-                    \item "emailstop" SMALLINT NOT NULL,
-                    \item "icq" NVARCHAR(15) NOT NULL,
-                    \item "skype" NVARCHAR(50) NOT NULL,
-                    \item "yahoo" NVARCHAR(50) NOT NULL,
-                    \item "aim" NVARCHAR(50) NOT NULL,
-                    \item "msn" NVARCHAR(50) NOT NULL,
-                    \item "phone1" NVARCHAR(20) NOT NULL,
-                    \item "phone2" NVARCHAR(20) NOT NULL,
-                    \item "institution" NVARCHAR(40) NOT NULL,
-                    \item "department" NVARCHAR(30) NOT NULL,
-                    \item "address" NVARCHAR(70) NOT NULL,
-                    \item "city" NVARCHAR(120) NOT NULL,
-                    \item "country" NVARCHAR(2) NOT NULL,
-                    \item "lang" NVARCHAR(30) NOT NULL,
-                    \item "theme" NVARCHAR(50) NOT NULL,
-                    \item "timezone" NVARCHAR(100) NOT NULL,
-                    \item "firstaccess" BIGINT NOT NULL,
-                    \item "lastaccess" BIGINT NOT NULL,
-                    \item "lastlogin" BIGINT NOT NULL,
-                    \item "currentlogin" BIGINT NOT NULL,
-                    \item "lastip" NVARCHAR(45) NOT NULL,
-                    \item "secret" NVARCHAR(15) NOT NULL,
-                    \item "picture" BIGINT NOT NULL,
-                    \item "url" NVARCHAR(255) NOT NULL,
-                    \item "description" NVARCHAR(-1) NULL,
-                    \item "descriptionformat" SMALLINT NOT NULL,
-                    \item "mailformat" SMALLINT NOT NULL,
-                    \item "maildigest" SMALLINT NOT NULL,
-                    \item "maildisplay" SMALLINT NOT NULL,
-                    \item "htmleditor" SMALLINT NOT NULL,
-                    \item "autosubscribe" SMALLINT NOT NULL,
-                    \item "trackforums" SMALLINT NOT NULL,
-                    \item "timecreated" BIGINT NOT NULL,
-                    \item "timemodified" BIGINT NOT NULL,
-                    \item "trustbitmask" BIGINT NOT NULL,
-                    \item "imagealt" NVARCHAR(255) NULL,
-                    \item "screenreader" SMALLINT NOT NULL
-                \end{itemize}
+%                \begin{itemize}
+%                    \item "id" BIGINT NOT NULL,
+%                    \item "auth" NVARCHAR(20) NOT NULL,
+%                    \item "confirmed" SMALLINT NOT NULL,
+%                    \item "policyagreed" SMALLINT NOT NULL,
+%                    \item "deleted" SMALLINT NOT NULL,
+%                    \item "suspended" SMALLINT NOT NULL,
+%                    \item "mnethostid" BIGINT NOT NULL,
+%                    \item "username" NVARCHAR(100) NOT NULL,
+%                    \item "password" NVARCHAR(32) NOT NULL,
+%                    \item "idnumber" NVARCHAR(255) NOT NULL,
+%                    \item "firstname" NVARCHAR(100) NOT NULL,
+%                    \item "lastname" NVARCHAR(100) NOT NULL,
+%                    \item "email" NVARCHAR(100) NOT NULL,
+%                    \item "emailstop" SMALLINT NOT NULL,
+%                    \item "icq" NVARCHAR(15) NOT NULL,
+%                    \item "skype" NVARCHAR(50) NOT NULL,
+%                    \item "yahoo" NVARCHAR(50) NOT NULL,
+%                    \item "aim" NVARCHAR(50) NOT NULL,
+%                    \item "msn" NVARCHAR(50) NOT NULL,
+%                    \item "phone1" NVARCHAR(20) NOT NULL,
+%                    \item "phone2" NVARCHAR(20) NOT NULL,
+%                    \item "institution" NVARCHAR(40) NOT NULL,
+%                    \item "department" NVARCHAR(30) NOT NULL,
+%                    \item "address" NVARCHAR(70) NOT NULL,
+%                    \item "city" NVARCHAR(120) NOT NULL,
+%                    \item "country" NVARCHAR(2) NOT NULL,
+%                    \item "lang" NVARCHAR(30) NOT NULL,
+%                    \item "theme" NVARCHAR(50) NOT NULL,
+%                    \item "timezone" NVARCHAR(100) NOT NULL,
+%                    \item "firstaccess" BIGINT NOT NULL,
+%                    \item "lastaccess" BIGINT NOT NULL,
+%                    \item "lastlogin" BIGINT NOT NULL,
+%                    \item "currentlogin" BIGINT NOT NULL,
+%                    \item "lastip" NVARCHAR(45) NOT NULL,
+%                    \item "secret" NVARCHAR(15) NOT NULL,
+%                    \item "picture" BIGINT NOT NULL,
+%                    \item "url" NVARCHAR(255) NOT NULL,
+%                    \item "description" NVARCHAR(-1) NULL,
+%                    \item "descriptionformat" SMALLINT NOT NULL,
+%                    \item "mailformat" SMALLINT NOT NULL,
+%                    \item "maildigest" SMALLINT NOT NULL,
+%                    \item "maildisplay" SMALLINT NOT NULL,
+%                    \item "htmleditor" SMALLINT NOT NULL,
+%                    \item "autosubscribe" SMALLINT NOT NULL,
+%                    \item "trackforums" SMALLINT NOT NULL,
+%                    \item "timecreated" BIGINT NOT NULL,
+%                    \item "timemodified" BIGINT NOT NULL,
+%                    \item "trustbitmask" BIGINT NOT NULL,
+%                    \item "imagealt" NVARCHAR(255) NULL,
+%                    \item "screenreader" SMALLINT NOT NULL
+%                \end{itemize}
             \item user\_enrolments
-                \begin{itemize}
-                    \item "id" BIGINT NOT NULL,
-                    \item "status" BIGINT NOT NULL,
-                    \item "enrolid" BIGINT NOT NULL,
-                    \item "userid" BIGINT NOT NULL,
-                    \item "timestart" BIGINT NOT NULL,
-                    \item "timeend" BIGINT NOT NULL,
-                    \item "modifierid" BIGINT NOT NULL,
-                    \item "timecreated" BIGINT NOT NULL,
-                    \item "timemodified" BIGINT NOT NULL
-                \end{itemize}
+%                \begin{itemize}
+%                    \item "id" BIGINT NOT NULL,
+%                    \item "status" BIGINT NOT NULL,
+%                    \item "enrolid" BIGINT NOT NULL,
+%                    \item "userid" BIGINT NOT NULL,
+%                    \item "timestart" BIGINT NOT NULL,
+%                    \item "timeend" BIGINT NOT NULL,
+%                    \item "modifierid" BIGINT NOT NULL,
+%                    \item "timecreated" BIGINT NOT NULL,
+%                    \item "timemodified" BIGINT NOT NULL
+%                \end{itemize}
             \item user\_info\_category
-                \begin{itemize}
-                    \item "id" BIGINT NOT NULL,
-                    \item "name" NVARCHAR(255) NOT NULL,
-                    \item "sortorder" BIGINT NOT NULL 
-                \end{itemize}
+%                \begin{itemize}
+%                    \item "id" BIGINT NOT NULL,
+%                    \item "name" NVARCHAR(255) NOT NULL,
+%                    \item "sortorder" BIGINT NOT NULL 
+%                \end{itemize}
             \item user\_info\_data
-                \begin{itemize}
-                    \item "id" BIGINT NOT NULL,
-                    \item "userid" BIGINT NOT NULL,
-                    \item "fieldid" BIGINT NOT NULL,
-                    \item "data" NVARCHAR(-1) NOT NULL,
-                    \item "dataformat" SMALLINT NOT NULL 
-                \end{itemize}
+%                \begin{itemize}
+%                    \item "id" BIGINT NOT NULL,
+%                    \item "userid" BIGINT NOT NULL,
+%                    \item "fieldid" BIGINT NOT NULL,
+%                    \item "data" NVARCHAR(-1) NOT NULL,
+%                    \item "dataformat" SMALLINT NOT NULL 
+%                \end{itemize}
             \item user\_info\_field
-                \begin{itemize}
-                    \item "id" BIGINT NOT NULL,
-                    \item "shortname" NVARCHAR(255) NOT NULL,
-                    \item "name" NVARCHAR(-1) NOT NULL,
-                    \item "datatype" NVARCHAR(255) NOT NULL,
-                    \item "description" NVARCHAR(-1) NULL,
-                    \item "descriptionformat" SMALLINT NOT NULL,
-                    \item "categoryid" BIGINT NOT NULL,
-                    \item "sortorder" BIGINT NOT NULL,
-                    \item "required" SMALLINT NOT NULL,
-                    \item "locked" SMALLINT NOT NULL,
-                    \item "visible" SMALLINT NOT NULL,
-                    \item "forceunique" SMALLINT NOT NULL,
-                    \item "signup" SMALLINT NOT NULL,
-                    \item "defaultdata" NVARCHAR(-1) NULL,
-                    \item "defaultdataformat" SMALLINT NOT NULL,
-                    \item "param1" NVARCHAR(-1) NULL,
-                    \item "param2" NVARCHAR(-1) NULL,
-                    \item "param3" NVARCHAR(-1) NULL,
-                    \item "param4" NVARCHAR(-1) NULL,
-                    \item "param5" NVARCHAR(-1) NULL 
-                \end{itemize}
+%                \begin{itemize}
+%                    \item "id" BIGINT NOT NULL,
+%                    \item "shortname" NVARCHAR(255) NOT NULL,
+%                    \item "name" NVARCHAR(-1) NOT NULL,
+%                    \item "datatype" NVARCHAR(255) NOT NULL,
+%                    \item "description" NVARCHAR(-1) NULL,
+%                    \item "descriptionformat" SMALLINT NOT NULL,
+%                    \item "categoryid" BIGINT NOT NULL,
+%                    \item "sortorder" BIGINT NOT NULL,
+%                    \item "required" SMALLINT NOT NULL,
+%                    \item "locked" SMALLINT NOT NULL,
+%                    \item "visible" SMALLINT NOT NULL,
+%                    \item "forceunique" SMALLINT NOT NULL,
+%                    \item "signup" SMALLINT NOT NULL,
+%                    \item "defaultdata" NVARCHAR(-1) NULL,
+%                    \item "defaultdataformat" SMALLINT NOT NULL,
+%                    \item "param1" NVARCHAR(-1) NULL,
+%                    \item "param2" NVARCHAR(-1) NULL,
+%                    \item "param3" NVARCHAR(-1) NULL,
+%                    \item "param4" NVARCHAR(-1) NULL,
+%                    \item "param5" NVARCHAR(-1) NULL 
+%                \end{itemize}
             \item user\_lastaccess
-                \begin{itemize}
-                    \item "id" BIGINT NOT NULL,
-                    \item "userid" BIGINT NOT NULL,
-                    \item "courseid" BIGINT NOT NULL,
-                    \item "timeaccess" BIGINT NOT NULL
-                \end{itemize}
+%                \begin{itemize}
+%                    \item "id" BIGINT NOT NULL,
+%                    \item "userid" BIGINT NOT NULL,
+%                    \item "courseid" BIGINT NOT NULL,
+%                    \item "timeaccess" BIGINT NOT NULL
+%                \end{itemize}
             \item user\_preference
-                \begin{itemize}
-                    \item "id" BIGINT NOT NULL,
-                    \item "userid" BIGINT NOT NULL,
-                    \item "name" NVARCHAR(255) NOT NULL,
-                    \item "value" NVARCHAR(1333) NOT NULL  
-                \end{itemize}
+%                 \begin{itemize}
+%                     \item "id" BIGINT NOT NULL,
+%                     \item "userid" BIGINT NOT NULL,
+%                     \item "name" NVARCHAR(255) NOT NULL,
+%                     \item "value" NVARCHAR(1333) NOT NULL  
+%                 \end{itemize}
             \item user\_private\_key
-                \begin{itemize}
-                    \item "id" BIGINT NOT NULL,
-                    \item "script" NVARCHAR(128) NOT NULL,
-                    \item "value" NVARCHAR(128) NOT NULL,
-                    \item "userid" BIGINT NOT NULL,
-                    \item "instance" BIGINT NULL,
-                    \item "iprestriction" NVARCHAR(255) NULL,
-                    \item "validuntil" BIGINT NULL,
-                    \item "timecreated" BIGINT NULL 
-                \end{itemize}
+%                 \begin{itemize}
+%                     \item "id" BIGINT NOT NULL,
+%                     \item "script" NVARCHAR(128) NOT NULL,
+%                     \item "value" NVARCHAR(128) NOT NULL,
+%                     \item "userid" BIGINT NOT NULL,
+%                     \item "instance" BIGINT NULL,
+%                     \item "iprestriction" NVARCHAR(255) NULL,
+%                     \item "validuntil" BIGINT NULL,
+%                     \item "timecreated" BIGINT NULL 
+%                 \end{itemize}
         \end{itemize}
-
+        \image{img/moodle-user.png}{Пользователи Moodle}{pic:MoodleUser}
+    \item Роли пользователей
+        \begin{itemize}
+            \item role
+            \item capabilities
+            \item context
+            \item role\_allow\_assign
+            \item role\_allow\_override
+            \item role\_allow\_switch
+            \item role\_assignments
+            \item role\_capabilities
+            \item role\_context\_levels
+            \item role\_names
+            \item role\_sortorder
+        \end{itemize} 
+        \image{img/moodle-role.png}{Роли пользователя}{pic:UserRole}
+    \item Группы пользователей
+        \begin{itemize}
+            \item groups
+            \item groups\_member
+            \item groupings
+            \item groupings\_groups
+        \end{itemize}
+        \image{img/moodle-group.png}{Группы пользователей}{pic:UserGroup}
+\end{itemize}
+\subsection{Механизмы обеспечения надёжности}
+Moodle имеет несколько методов управление доступом.
+\begin{itemize}
+    \item Ролевая модель - позволяет гибко настроить права для пользователя (студент, преподователь, гость).
+    \item Методы аутентификации - сайт на Moodle может включать в себя несколько способов входа (Через почту Google, VK и др.), а так же поддерживает другие протоколы аутентификации (OAUTH). 
+    \item Защита от XSS и SQL - инъекций
+    \item Безопасность загрузки и просмотра файлов - При открытии файла, идёт обращение к скрипту autoload.php в который передаётся GET параметром путь до файла и уже этот скрипт решает как отдать нам файл. Если это файл кода - то он его просто даст на скачивание, если же это .pdf документ или же .docx (если сайт поддерживает открытие документов такого формата), то откроется в браузере. 
 \end{itemize}
 
-% г) Модель данных (основные сущности, типы связей). 
+\subsection{Оценка масштабируемости и производительности}
+При высокой нагрузке, сайт Moodle может проседать в производительности из-за своей монолитности. Есть плагины которые могут предоставить RESTAPI и с помощью него разделить отвественность (Moodle сайт использовать как backend и написать свой фронтенд), но в этом есть минус в том что разработка такого решения займёт много времени (Moodle очень много что предоставляет из коробки, в случае же с фронтендом, писать и реализовывать придётся крайне много). \par
+Сайт отлично внедряется в учебный процесс. В техникуме, в школе или в вузе - неважно. Почти все сайты учебных заведений сделаны на Moodle. Помимо учебных сайтов, существуют так же сайты и с научными работами.
 
-% д) Механизмы обеспечения надёжности (резервирование, 
-% кластеризация, репликация данных) и безопасности (ролевая модель 
-% доступа, шифрование, аудит). 
+\subsubsection{Особенности интеграции с другими системами.}
+Moodle предоставляет несколько уровней интеграции. Прежде всего, это встроенные веб-сервисы (Web Services): REST (основной и рекомендуемый вариант), а также устаревшие SOAP и XML-RPC. Администратор включает веб-сервисы и выпускает токен доступа; внешнее приложение обращается к endpoint webservice/rest/server.php, передавая wstoken, имя функции и параметры, а ответ получает в формате JSON или XML. Через эти функции можно программно создавать пользователей и курсы, управлять зачислением, получать оценки и списки курсов. Тот же API использует официальное мобильное приложение Moodle.
 
-% е) Оценка масштабируемости и производительности 
-% (поддерживаемая нагрузка, примеры внедрений).
+Для связи с другими образовательными сервисами применяются открытые стандарты. Протокол LTI (особенно LTI 1.3 с расширением LTI Advantage) позволяет подключать внешние инструменты — системы проверки на плагиат, видеоконференции, интерактивные задания — с передачей оценок и списков участников прямо в журнал Moodle. Формат SCORM 1.2/2004 даёт возможность импортировать готовые учебные модули ZIP-архивами и отслеживать прогресс, затраченное время и результаты прохождения. Стандарт xAPI (Tin Can) в связке с внешним хранилищем LRS (Learning Record Store) собирает подробную аналитику учебных действий, в том числе вне самой платформы. Для обмена данными также используются IMS QTI и Moodle XML (банк вопросов), CSV (пользователи и оценки), подписки календаря iCal и ленты RSS.
 
-% ж) Особенности интеграции с другими системами (API, веб-сервисы, 
-% форматы обмена). 
+Аутентификация может быть вынесена во внешнюю систему: поддерживаются LDAP, SAML 2.0, Shibboleth, CAS, OAuth 2/OpenID Connect и подключение к внешней базе данных, что позволяет организовать единый вход (SSO) и централизованное управление учётными записями. Система плагинов и событийная модель (Event API) дают возможность реагировать на события, запускать фоновые задачи и передавать данные в электронный дневник, систему аналитики или корпоративные сервисы. К ограничениям относятся монолитность ядра, зависимость плагинов от версии Moodle, необходимость использовать HTTPS и надёжно хранить токены, а также сложности при массовой синхронизации через API — в таких случаях интеграционную логику обычно выносят в отдельный сервис-посредник и кэшируют часто запрашиваемые данные.
+
+\subsection{Сильные и слабые стороны}
 
 % 4. На основе собранных данных выявить сильные и слабые стороны 
 % системы, возможные риски внедрения. 
