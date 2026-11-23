@@ -1,0 +1,3 @@
+[submodule "Programs/PdfMerger"]
+	path = Programs/PdfMerger
+	url = https://github.com/Bakamashine/PdfMerger.git
