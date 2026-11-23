@@ -3,7 +3,7 @@ param(
     [switch]$CreateLatexProject,
     [switch]$AllBuildLatexProject,
     [string]$Directory,
-    [string]$NewLabName,
+    [string]$LabNumber,
     [switch]$Debug
 )
 
@@ -31,6 +31,7 @@ $programsDir = Join-Path $PSScriptRoot 'Programs'
 $compiledDir = Join-Path $programsDir 'Compiled'
 $pdfMergerDir = Join-Path $compiledDir "PdfMerger"
 $pdfMergerExe = Join-Path $pdfMergerDir 'PdfMerger.exe'
+$texStylesDir = Join-Path $programsDir "texstyles"
 
 
 Write-DebugMsg "programsDir: $programsDir"
@@ -93,4 +94,22 @@ if ($AllBuildLatexProject) {
         }
         Copy-Item $outputPdf $Directory -Force
     }
+}
+
+if ($CreateLatexProject) {
+    $Directory = AskPath $Directory "Directory"
+    $LabNumber = Ask $LabNumber "NewLabName"
+    $newDir = Join-Path $Directory ($LabNumber + "lab")
+    New-Item -ItemType Directory $newDir
+    $gostFile = Join-Path $texStylesDir "gost.sty"
+    $mainFile = Join-Path $texStylesDir "main.tex"
+    $makefile = Join-Path $texStylesDir "Makefile"
+    $images = Join-Path $texStylesDir "img"
+    checkIsNotExists $mainFile
+    checkIsNotExists $gostFile
+    checkIsNotExists $makefile
+    Copy-Item $mainFile $newDir
+    Copy-item $gostFile $newDir
+    Copy-Item $makefile $newDir
+    Copy-Item -Recurse $images $newDir 
 }

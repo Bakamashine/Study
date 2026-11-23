@@ -3,4 +3,4 @@
 	url = https://github.com/Bakamashine/PdfMerger.git
 [submodule "Programs/texstyles"]
 	path = Programs/texstyles
-	url = https://github.com/Bakamashine/texstyles.git
+	url = https://github.com/Bakamashine/TexStyles.git
