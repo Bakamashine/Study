@@ -1,7 +1,5 @@
 all:
-	xelatex -interaction=nonstopmode main.tex
-	PdfMerger.exe title.pdf main.pdf
-
+	xelatex -interaction=nonstopmode main.tex 
 clear:
 	del *.log, *.aux, *.pdf, *.out
 clear2:
