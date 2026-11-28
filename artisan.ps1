@@ -1,9 +1,57 @@
+<#
+.SYNOPSIS
+    Helper script for creating and building lab LaTeX projects.
+
+.DESCRIPTION
+    -CreateLatexProject scaffolds a new project from Programs\texstyles.
+    -AllBuildLatexProject builds an existing project with make and merges
+    main.pdf with title.pdf. Missing values are requested interactively.
+
+.PARAMETER Help
+    Displays help and exits without validating any paths.
+
+.PARAMETER ClearDirectory
+    Reserved for future use; currently does nothing.
+
+.PARAMETER CreateLatexProject
+    Create a new LaTeX project under -Directory.
+
+.PARAMETER AllBuildLatexProject
+    Build and merge an existing LaTeX project in -Directory.
+
+.PARAMETER Directory
+    Existing directory to work in. Prompted for when omitted.
+
+.PARAMETER LabNumber
+    Lab number; the new project directory is named '<LabNumber>lab'.
+
+.PARAMETER Workname
+    New project directory name when -LabNumber is not supplied.
+
+.PARAMETER Debug
+    Print debug messages.
+
+.EXAMPLE
+    .\artisan.ps1 -Help
+
+.EXAMPLE
+    .\artisan.ps1 -CreateLatexProject -Directory 'D:\Projects\Study' -LabNumber 2
+
+.EXAMPLE
+    .\artisan.ps1 -AllBuildLatexProject -Directory 'D:\Projects\Study\2lab'
+
+.NOTES
+    Use Get-Help .\artisan.ps1 -Full for the same information.
+#>
 param(
+    [Alias('h')]
+    [switch]$Help,
     [switch]$ClearDirectory,
     [switch]$CreateLatexProject,
     [switch]$AllBuildLatexProject,
     [string]$Directory,
     [string]$LabNumber,
+    [string]$Workname,
     [switch]$Debug
 )
 
@@ -27,6 +75,45 @@ function checkIsNotExists {
     }
     return $Path
 }
+
+function Show-Help {
+    Write-Host @'
+artisan.ps1 - helper for lab LaTeX projects
+
+Usage:
+  .\artisan.ps1 [-Help] [-CreateLatexProject | -AllBuildLatexProject]
+                [-ClearDirectory] [-Directory <path>]
+                [-LabNumber <n> | -Workname <name>] [-Debug]
+
+Parameters:
+  -Help, -h                 Show this help and exit.
+  -CreateLatexProject       Create a new LaTeX project in -Directory from
+                            Programs\texstyles.
+  -AllBuildLatexProject     Run make in an existing project and merge
+                            main.pdf with title.pdf into merged.pdf.
+  -ClearDirectory           Reserved for future use; currently does nothing.
+  -Directory <path>         Existing directory to work in; prompted for if omitted.
+  -LabNumber <n>            Lab number; new project directory is '<n>lab'.
+  -Workname <name>          New project directory name when -LabNumber is omitted;
+                            prompted for if omitted too.
+  -Debug                    Print debug messages.
+
+Examples:
+  .\artisan.ps1 -Help
+  .\artisan.ps1 -CreateLatexProject -Directory 'D:\Projects\Study' -LabNumber 2
+  .\artisan.ps1 -CreateLatexProject -Directory 'D:\Projects\Study' -Workname 'My lab'
+  .\artisan.ps1 -AllBuildLatexProject -Directory 'D:\Projects\Study\2lab'
+
+'@
+
+    return
+}
+
+if ($Help) {
+    Show-Help
+    return
+}
+
 $programsDir = Join-Path $PSScriptRoot 'Programs'
 $compiledDir = Join-Path $programsDir 'Compiled'
 $pdfMergerDir = Join-Path $compiledDir "PdfMerger"
@@ -98,8 +185,14 @@ if ($AllBuildLatexProject) {
 
 if ($CreateLatexProject) {
     $Directory = AskPath $Directory "Directory"
-    $LabNumber = Ask $LabNumber "NewLabName"
-    $newDir = Join-Path $Directory ($LabNumber + "lab")
+    $newDir = $null
+    if (-not $LabNumber) {
+        $Workname = Ask $Workname "Workname"
+        $newDir = Join-Path $Directory $Workname
+    } else {
+        $newDir = Join-Path $Directory ($LabNumber + "lab")
+    }
+    
     New-Item -ItemType Directory $newDir
     $gostFile = Join-Path $texStylesDir "gost.sty"
     $mainFile = Join-Path $texStylesDir "main.tex"
